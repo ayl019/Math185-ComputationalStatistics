@@ -9,7 +9,7 @@ flipSignTest1 = function(x, B = 999)
 {
   n = length(x) ##Sample size
   yStar = mean(x) #Original sample mean
-  yEps = vector(mode = "numeric") #Vector for bootstrap sample means
+  yEps = vector(mode = "numeric") 
   
   #Monto Carlo sampling on sign vector
   for(b in 1 : B)
@@ -31,7 +31,7 @@ flipSignTest2 = function(x, B = 999)
 {
   n = length(x) ##Sample size
   yStar = abs(mean(x)) #Original sample mean
-  yEps = vector(mode = "numeric") #Vector for bootstrap sample means
+  yEps = vector(mode = "numeric") 
   
   #Monto Carlo sampling on sign vector
   for(b in 1 : B)
