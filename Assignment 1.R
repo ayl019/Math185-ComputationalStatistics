@@ -1,7 +1,7 @@
 #Homework 1
 
 #Problem 1(A)
-setwd("C:/Users/Andy/Desktop")
+setwd("C:/Users/ayl019/Desktop")
 load("earthquakes-2014.rda")
 
 #Want events of magnitude at least 2
@@ -22,9 +22,8 @@ colnames(table) = "Observations"
 table
 
 #Draw a relevant plot for the counts of events
-plot(months.obs, xlab = "Months", ylab = "Observations", main = "Observations in Each Month", col = "blue")
-axis(side = 1, at = seq(1, 12, 1))
-lines(months.obs)
+barplot(months.obs, xlab = "Months", ylab = "Observations", main = "Observations in Each Month", col = "blue"
+        , names.arg = 1:12)
 #It appears that March and July are the two months with the most earthquakes
 
 #Problem 1(B)
@@ -42,12 +41,20 @@ testStatistic = (testStatistic)^2 / (Uniform.Exp)
 testStatistic = sum(testStatistic)
 testStatistic
 #Large test statistics indicates that the observed counts do not match with the expected counts
-#The p-value is extremely small and is less than the significance level (0.05). So the null hypothesis cannot 
-#be accepted and this means that earthquakes are indeed more prevalent in some months.
+#The p-value is extremely small and is less than the significance level (0.05). So  there is strong evidence against
+#the null hypothesis and the null should not be accepted and this means that earthquakes are indeed more prevalent 
+#in some months.
+
+#To calibrate the test statistic by Monte Carlo sampling, the function chisq.test will be used
+chisq.test(months.obs, sim = TRUE)
+#The resulting p-value is as small as it can be based on the MC samples
+
+chisq.test(months.obs, sim = TRUE, B = 10000)
+#The same result still holds even with 10000 MC samples, so the null should indeed be rejected
 
 #Problem 2(A)
-#The data can be used to create a 2x2 contingency table to perform chi-square test for independence, and the 
-#independence or dependence will determine if the applicant's gender influences the admission decisions.
+#No, we cannot do a such test since these are observational data. Casual inferences are usually difficult and controversial in 
+#such settings. They are more acceptable in controlled trials. But we can still test for an association.
 
 #Problem 2(B)
 #Null = Admission decisions are not associated with applicant's gender(Independent)
@@ -69,8 +76,9 @@ table2
 #df = (2-1) * (2-1) = 1
 chisq.test(table2)
 #The test returns a large value of test statistic (110.85), so the observations do not match with the expected.
-#The extreme small p-value is less than the significance level (0.05) in this case. So the null hypothesis cannot 
-#be accepted and admission decisions are associated with the applicant's gender.
+#The extreme small p-value is less than the significance level (0.05) in this case. So there is strong evidence against
+#the null hypothesis and therefore admission decisions are associated with the applicant's gender. However, there is
+#no causal implication from the test.
 
 #Problem 3(A)
 #Same hypotheses as Problem 2(B)
@@ -94,8 +102,7 @@ table3 = as.table(table3)
 #Perform another chi-square independence test on the contingency table
 chisq.test(table3)
 #Same with Problem 2, the chi-square test returns a very large test statistic (91.61) and the p-value is obviously
-#less than the significance level of 0.05. So null hypothesis is rejected and there is an association between 
-#the applicant's gender and the admission (Dependent).
+#less than the significance level of 0.05. So the conclusion is same as #2.
 
 #Problem 3(B)
 plot(table3, main = "UCB admission (6 departments total)")
