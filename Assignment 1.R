@@ -1,5 +1,3 @@
-#Homework 1
-
 #Problem 1(A)
 setwd("C:/Users/ayl019/Desktop")
 load("earthquakes-2014.rda")
