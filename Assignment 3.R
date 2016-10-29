@@ -27,8 +27,6 @@ plot(density(originalSample))
 plot(density(meanDiff.sim))
 #The distribution for the Monte Carlo sample and the original sample appears to be symmetic about 0
 
-# explaination is incorrect
-
 #Problem 1(B)
 m = 2000
 n = 2000
